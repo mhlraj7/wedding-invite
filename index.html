@@ -1194,39 +1194,96 @@
 
       updateFestDeck(0);
 
+      
+// -------------------------------------------------------------
+// 8. OUR STORY CAROUSEL ENGINE (AUTO + DOT SYNC + SWIPE)
+// -------------------------------------------------------------
 
-      // -------------------------------------------------------------
-      // 8. OUR STORY CAROUSEL ENGINE
-      // -------------------------------------------------------------
-      const storyContainer = document.getElementById('story-slides-container');
-      const storyDots = document.querySelectorAll('#story-dots button');
-      let currentStoryIndex = 0;
+const storyContainer = document.getElementById('story-slides-container');
+const storyDots = document.querySelectorAll('#story-dots button');
 
-      function goToStorySlide(index) {
-        currentStoryIndex = index;
-        storyContainer.style.transform = `translateX(-${index * 100}%)`;
-        storyDots.forEach((dot, idx) => {
-          dot.className = `w-2.5 h-2.5 rounded-full transition-all ${idx === index ? 'bg-wine w-6' : 'bg-gold/40'}`;
-        });
-      }
+const totalSlides = storyDots.length;
+let currentStoryIndex = 0;
+let autoSlideInterval;
 
-      storyDots.forEach(dot => {
-        dot.addEventListener('click', (e) => {
-          const slideIdx = parseInt(e.target.getAttribute('data-slide'));
-          goToStorySlide(slideIdx);
-        });
-      });
+// Update image and corresponding active dot
+function goToStorySlide(index) {
 
-      // Swipe support for Story Carousel
-      let storyStartX = 0;
-      storyContainer.addEventListener('touchstart', (e) => storyStartX = e.touches[0].clientX);
-      storyContainer.addEventListener('touchend', (e) => {
-        const diffX = e.changedTouches[0].clientX - storyStartX;
-        if (Math.abs(diffX) > 40) {
-          if (diffX < 0 && currentStoryIndex < 3) goToStorySlide(currentStoryIndex + 1);
-          else if (diffX > 0 && currentStoryIndex > 0) goToStorySlide(currentStoryIndex - 1);
+    currentStoryIndex = (index + totalSlides) % totalSlides;
+
+    // Move image
+    storyContainer.style.transform =
+        `translateX(-${currentStoryIndex * 100}%)`;
+
+    // Update dots
+    storyDots.forEach((dot, idx) => {
+
+        if (idx === currentStoryIndex) {
+            dot.className =
+                'w-2.5 h-2.5 rounded-full bg-wine w-6 transition-all';
+        } else {
+            dot.className =
+                'w-2.5 h-2.5 rounded-full bg-gold/40 transition-all';
         }
-      });
+
+    });
+}
+
+// Automatic slideshow
+function startAutoSlide() {
+
+    clearInterval(autoSlideInterval);
+
+    autoSlideInterval = setInterval(() => {
+        goToStorySlide(currentStoryIndex + 1);
+    }, 5000);
+
+}
+
+// Manual dot navigation
+storyDots.forEach((dot, idx) => {
+
+    dot.addEventListener('click', () => {
+
+        goToStorySlide(idx);
+
+        // Restart timer after manual navigation
+        startAutoSlide();
+
+    });
+
+});
+
+// Swipe support
+let storyStartX = 0;
+
+storyContainer.addEventListener('touchstart', (e) => {
+    storyStartX = e.touches[0].clientX;
+});
+
+storyContainer.addEventListener('touchend', (e) => {
+
+    const diffX = e.changedTouches[0].clientX - storyStartX;
+
+    if (Math.abs(diffX) > 40) {
+
+        if (diffX < 0) {
+            goToStorySlide(currentStoryIndex + 1);
+        } else {
+            goToStorySlide(currentStoryIndex - 1);
+        }
+
+        // Restart timer after swipe
+        startAutoSlide();
+
+    }
+
+});
+
+// Initialize carousel
+goToStorySlide(0);
+startAutoSlide();
+
 
 
       // -------------------------------------------------------------
