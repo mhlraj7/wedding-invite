@@ -42,6 +42,38 @@
   </script>
 
   <style>
+
+    /* Our Story Zoom Animations */
+
+    /* Zoom In */
+    @keyframes storyZoomIn {
+      from {
+        transform: scale(1);
+      }
+      to {
+        transform: scale(1.25);
+      }
+    }
+
+    /* Zoom Out */
+    @keyframes storyZoomOut {
+      from {
+        transform: scale(1.25);
+      }
+      to {
+        transform: scale(1);
+      }
+    }
+
+    /* Animation classes */
+    .story-zoom-in {
+      animation: storyZoomIn 5s ease-in-out forwards;
+    }
+
+    .story-zoom-out {
+      animation: storyZoomOut 5s ease-in-out forwards;
+    }
+
     /* Custom animations & 3D transformations */
     html, body {
       background-color: #F9ECEC;
@@ -118,6 +150,7 @@
     /* Gold Shimmer effect */
     .gold-gradient-text {
       background: linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #AA771C 100%);
+      background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -486,6 +519,67 @@
             <div class="w-24 h-0.5 bg-gold/50 mx-auto my-3"></div>
             <p class="text-[11px] text-amber-900 italic">"Two hearts, one sacred journey under heaven's blessings."</p>
 
+            <!-- Live Countdown Ticker -->
+            <div class="mt-8 bg-wine text-ivory rounded-2xl p-4 shadow-xl border-2 border-gold text-center reveal-blur">
+              <p class="text-xs text-gold uppercase tracking-widest font-semibold mb-2">Counting Down To Our Special Day</p>
+              
+              <!-- Responsive Countdown Timer -->
+              <div class="flex justify-center items-center gap-1.5 sm:gap-3
+                          font-serif text-lg sm:text-2xl font-bold w-full">
+
+                <!-- Days -->
+                <div class="flex flex-col items-center justify-center
+                            bg-wine-dark/60 px-2 sm:px-3 py-2 rounded-lg
+                            border border-gold/40 flex-1 min-w-0">
+                  <span id="cd-days" class="text-xl sm:text-2xl">00</span>
+                  <span class="text-[9px] font-sans text-gold/80 uppercase
+                              font-normal tracking-wider">Days</span>
+                </div>
+
+                <span class="text-gold flex-shrink-0">·</span>
+
+                <!-- Hours -->
+                <div class="flex flex-col items-center justify-center
+                            bg-wine-dark/60 px-2 sm:px-3 py-2 rounded-lg
+                            border border-gold/40 flex-1 min-w-0">
+                  <span id="cd-hours" class="text-xl sm:text-2xl">00</span>
+                  <span class="text-[9px] font-sans text-gold/80 uppercase
+                              font-normal tracking-wider">Hrs</span>
+                </div>
+
+                <span class="text-gold flex-shrink-0">·</span>
+
+                <!-- Minutes -->
+                <div class="flex flex-col items-center justify-center
+                            bg-wine-dark/60 px-2 sm:px-3 py-2 rounded-lg
+                            border border-gold/40 flex-1 min-w-0">
+                  <span id="cd-mins" class="text-xl sm:text-2xl">00</span>
+                  <span class="text-[9px] font-sans text-gold/80 uppercase
+                              font-normal tracking-wider">Min</span>
+                </div>
+
+                <span class="text-gold flex-shrink-0">·</span>
+
+                <!-- Seconds -->
+                <div class="flex flex-col items-center justify-center
+                            bg-wine-dark/60 px-2 sm:px-3 py-2 rounded-lg
+                            border border-gold/40 flex-1 min-w-0">
+                  <span id="cd-secs" class="text-xl sm:text-2xl">00</span>
+                  <span class="text-[9px] font-sans text-gold/80 uppercase
+                              font-normal tracking-wider">Sec</span>
+                </div>
+
+              </div>
+
+              <!-- Add to Calendar Button -->
+              <button id="add-calendar-btn" class="mt-4 w-full py-2.5 px-4 gold-bg-gradient text-wine font-semibold text-xs rounded-xl shadow-lg border border-white flex items-center justify-center gap-2 transform active:scale-95 transition">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                </svg>
+                Add to Google Calendar / iCal
+              </button>
+            </div>
+
           </div>
         </div>
 
@@ -512,7 +606,7 @@
       </div>
 
       <!-- Live Countdown Ticker -->
-      <div class="mt-8 bg-wine text-ivory rounded-2xl p-4 shadow-xl border-2 border-gold text-center reveal-blur">
+      <!--div class="mt-8 bg-wine text-ivory rounded-2xl p-4 shadow-xl border-2 border-gold text-center reveal-blur">
         <p class="text-xs text-gold uppercase tracking-widest font-semibold mb-2">Counting Down To Our Special Day</p>
         
         <div class="flex justify-center items-center gap-3 font-serif text-xl sm:text-2xl font-bold">
@@ -538,13 +632,13 @@
         </div>
 
         <!-- Add to Calendar Button -->
-        <button id="add-calendar-btn" class="mt-4 w-full py-2.5 px-4 gold-bg-gradient text-wine font-semibold text-xs rounded-xl shadow-lg border border-white flex items-center justify-center gap-2 transform active:scale-95 transition">
+        <!--button id="add-calendar-btn" class="mt-4 w-full py-2.5 px-4 gold-bg-gradient text-wine font-semibold text-xs rounded-xl shadow-lg border border-white flex items-center justify-center gap-2 transform active:scale-95 transition">
           <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
           </svg>
           Add to Google Calendar / iCal
         </button>
-      </div>
+      </div-->
 
     </section>
 
@@ -720,10 +814,10 @@
           <!-- Slide 1 -->
           <div class="w-full flex-shrink-0 p-4 text-center">
             <div class="w-full h-72 rounded-xl overflow-hidden border border-gold/50 shadow mb-3">
-              <img src="IMG_20250921_141323.jpg" 
+              <img src="img1.jpg" 
                    onerror="this.src='https://placehold.co/600x600/6e1f2f/D4AF37?text=Ajay+%26+Isha+1'" 
                    alt="Ajay and Isha Moment 1" 
-                   class="w-full h-full object-cover"/>
+                   class="story-image story-zoom-in w-full h-full object-cover"/>
             </div>
             <p class="font-serif italic text-wine text-sm font-semibold">"Every love story is beautiful, but ours is my favorite."</p>
           </div>
@@ -731,10 +825,10 @@
           <!-- Slide 2 -->
           <div class="w-full flex-shrink-0 p-4 text-center">
             <div class="w-full h-72 rounded-xl overflow-hidden border border-gold/50 shadow mb-3">
-              <img src="IMG_20250921_141332.jpg" 
+              <img src="img2.jpg" 
                    onerror="this.src='https://placehold.co/600x600/6e1f2f/D4AF37?text=Ajay+%26+Isha+2'" 
                    alt="Ajay and Isha Moment 2" 
-                   class="w-full h-full object-cover"/>
+                   class="story-image story-zoom-out w-full h-full object-cover"/>
             </div>
             <p class="font-serif italic text-wine text-sm font-semibold">"Hand in hand, ready for a lifetime of laughter."</p>
           </div>
@@ -742,10 +836,10 @@
           <!-- Slide 3 -->
           <div class="w-full flex-shrink-0 p-4 text-center">
             <div class="w-full h-72 rounded-xl overflow-hidden border border-gold/50 shadow mb-3">
-              <img src="IMG_20250921_141400.jpg" 
+              <img src="img3.jpg" 
                    onerror="this.src='https://placehold.co/600x600/6e1f2f/D4AF37?text=Ajay+%26+Isha+3'" 
                    alt="Ajay and Isha Moment 3" 
-                   class="w-full h-full object-cover"/>
+                   class="story-image story-zoom-in w-full h-full object-cover"/>
             </div>
             <p class="font-serif italic text-wine text-sm font-semibold">"Bound by love, blessed by family."</p>
           </div>
@@ -753,10 +847,10 @@
           <!-- Slide 4 -->
           <div class="w-full flex-shrink-0 p-4 text-center">
             <div class="w-full h-72 rounded-xl overflow-hidden border border-gold/50 shadow mb-3">
-              <img src="IMG_20250921_141603.jpg" 
+              <img src="img4.jpg" 
                    onerror="this.src='https://placehold.co/600x600/6e1f2f/D4AF37?text=Ajay+%26+Isha+4'" 
                    alt="Ajay and Isha Moment 4" 
-                   class="w-full h-full object-cover"/>
+                   class="story-image story-zoom-out w-full h-full object-cover"/>
             </div>
             <p class="font-serif italic text-wine text-sm font-semibold">"The beginning of our forever."</p>
           </div>
@@ -1210,6 +1304,31 @@ let autoSlideInterval;
 function goToStorySlide(index) {
 
     currentStoryIndex = (index + totalSlides) % totalSlides;
+
+    // Restart zoom animation whenever a slide becomes active
+    const storyImages = document.querySelectorAll('.story-image');
+
+    storyImages.forEach((img, idx) => {
+
+        img.style.animation = 'none';
+
+        // Force browser to restart animation
+        void img.offsetWidth;
+
+        if (idx === currentStoryIndex) {
+            img.style.animation = '';
+
+            img.classList.remove('story-zoom-in', 'story-zoom-out');
+
+            void img.offsetWidth;
+
+            if (idx === 0 || idx === 2) {
+                img.classList.add('story-zoom-in');
+            } else {
+                img.classList.add('story-zoom-out');
+            }
+        }
+    });
 
     // Move image
     storyContainer.style.transform =
